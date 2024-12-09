@@ -1,5 +1,4 @@
 import axios from "axios";
-
 interface Pokemon {
     name: string;
     url: string;
@@ -26,7 +25,6 @@ export const fetchPokemons = async (): Promise<PokemonDetails[]> => {
                 }))
             )
         );
-
         return pokemonsDetails;
     } catch (error) {
         console.error(error);
