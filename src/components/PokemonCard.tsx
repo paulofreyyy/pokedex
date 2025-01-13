@@ -9,7 +9,7 @@ interface PokemonCardProps {
     image: string;
 }
 
-const PokemonCard: React.FC<PokemonCardProps> = ({ name, number, types, image }) => {
+const PokemonCard = ({ name, number, types, image }: PokemonCardProps) => {
     return (
         <Box
             sx={{
@@ -19,7 +19,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ name, number, types, image })
                 flexDirection: 'column',
                 alignItems: "center",
                 justifyContent: "space-between",
-                gap: 2
+                gap: 2,
+                cursor: "pointer",
             }}
         >
             <Box
@@ -32,7 +33,11 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ name, number, types, image })
                     backgroundPosition: "center",
                     position: "relative",
                     bgcolor: TypeColors[types[0]] || '#D3D3D3',
-                    borderRadius: 5
+                    borderRadius: 5,
+                    transition: 'transform 0.5s ease-in-out',
+                    "&:hover": {
+                        transform: "scale(1.1)",
+                    }
                 }}
             />
 
