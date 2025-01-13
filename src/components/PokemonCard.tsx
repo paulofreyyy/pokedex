@@ -56,6 +56,8 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ name, number, types, image })
                             sx={{
                                 bgcolor: TypeColors[type] || '#D3D3D3',
                                 color: '#FFF',
+                                fontWeight: 600,
+                                px: 1
                             }}
                         />
                     ))}
