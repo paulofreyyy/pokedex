@@ -4,6 +4,7 @@ import { TypeColors } from "../utils/typeColors";
 import { capitalizeFirstLetter } from "../utils/stringUtils";
 import { PokemonDetails } from "../types/pokemon";
 import { useMemo } from "react";
+import { StatsBar } from "../components/StatsBar";
 
 export const Details = () => {
     const { number } = useParams<{ number: string }>();
@@ -52,6 +53,10 @@ export const Details = () => {
                         }}
                     />
                 ))}
+            </Box>
+
+            <Box>
+                <StatsBar label="Speed" value={pokemonDetails.speed} />
             </Box>
         </Box>
     );

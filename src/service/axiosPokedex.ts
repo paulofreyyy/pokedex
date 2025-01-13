@@ -22,6 +22,12 @@ export const fetchPokemons = async (): Promise<PokemonDetails[]> => {
                     types: data.types.map((typeInfo: { type: { name: string } }) => typeInfo.type.name),
                     number: data.id,
                     image: data.sprites.front_default,
+                    hp: data.stats[0].base_stat,
+                    attack: data.stats[1].base_stat,
+                    defense: data.stats[2].base_stat,
+                    sp_attack: data.stats[3].base_stat,
+                    sp_defense: data.stats[4].base_stat,
+                    speed: data.stats[5].base_stat,
                 }))
             )
         );
