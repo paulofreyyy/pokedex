@@ -2,15 +2,9 @@ import { Box, Chip, Typography } from "@mui/material";
 import { TypeColors } from "../utils/typeColors";
 import { capitalizeFirstLetter } from "../utils/stringUtils";
 import { useNavigate } from "react-router-dom";
+import { PokemonDetails } from "../types/pokemon";
 
-interface PokemonCardProps {
-    name: string;
-    number: string;
-    types: string[];
-    image: string;
-}
-
-const PokemonCard = ({ name, number, types, image }: PokemonCardProps) => {
+const PokemonCard = ({ name, number, types, image }: PokemonDetails) => {
     const navigate = useNavigate();
 
     const handleNavigate = () => {
