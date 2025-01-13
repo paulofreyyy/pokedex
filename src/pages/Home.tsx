@@ -20,24 +20,26 @@ export const Home = () => {
     }, [pokemons]);
 
     return (
-        <Grid
-            container
-            rowSpacing={4}
-        >
-            {pokemons.map((pokemon, index) => (
-                <Grid
-                    item
-                    md={2}
-                    key={index}
-                >
-                    <PokemonCard
-                        name={pokemon.name}
-                        number={pokemon.number}
-                        types={pokemon.types}
-                        image={pokemon.image}
-                    />
-                </Grid>
-            ))}
-        </Grid>
+        <>
+            <Grid
+                container
+                rowSpacing={4}
+            >
+                {pokemons.map((pokemon, index) => (
+                    <Grid
+                        item
+                        md={2}
+                        key={index}
+                    >
+                        <PokemonCard
+                            name={pokemon.name}
+                            number={pokemon.number}
+                            types={pokemon.types}
+                            image={pokemon.image}
+                        />
+                    </Grid>
+                ))}
+            </Grid>
+        </>
     );
 };

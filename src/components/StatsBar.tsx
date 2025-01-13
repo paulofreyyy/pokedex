@@ -6,25 +6,42 @@ interface Props {
 }
 
 export const StatsBar = ({ label, value }: Props) => {
+    const percentage = (value / 255) * 100;
+
+    const getColor = () => {
+        if (percentage <= 25) return "red";
+        if (percentage <= 50) return "orange";
+        if (percentage <= 75) return "yellow";
+        return "green";
+    };
+
     return (
         <Box
             sx={{
                 display: "flex",
-                flexDirection: "row",
-                gap: 2
+                alignItems: "center",
+                justifyContent: "flex-end",
+                gap: 3,
+                mb: 1,
             }}
         >
             <Typography fontWeight={600}>{label}</Typography>
             <Typography fontWeight={600}>{value}</Typography>
 
-            <LinearProgress
-                variant="determinate"
-                value={value}
-                sx={{
-                    borderRadius: 2,
-                    height: 15,
-                }}
-            />
+            <Box sx={{ minWidth: 350 }}>
+                <LinearProgress
+                    variant="determinate"
+                    value={percentage}
+                    sx={{
+                        borderRadius: 2,
+                        height: 15,
+                        backgroundColor: "#e0e0e0",
+                        "& .MuiLinearProgress-bar": {
+                            backgroundColor: getColor(),
+                        },
+                    }}
+                />
+            </Box>
         </Box>
     )
 }
