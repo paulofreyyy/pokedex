@@ -44,7 +44,7 @@ export const App = () => {
             {pokemons.map((pokemon, index) => (
                 <Grid
                     item
-                    md={4}
+                    md={2}
                     key={index}
                 >
                     <PokemonCard

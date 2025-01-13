@@ -1,5 +1,6 @@
 import { Box, Chip, Typography } from "@mui/material";
 import { TypeColors } from "../utils/typeColors";
+import { capitalizeFirstLetter } from "../utils/stringUtils";
 
 interface PokemonCardProps {
     name: string;
@@ -12,48 +13,49 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ name, number, types, image })
     return (
         <Box
             sx={{
-                background: '#FFF',
                 textAlign: 'center',
-                borderRadius: 5,
-                minWidth: 200,
-                height: 'auto',
-                boxShadow: 2,
+                maxWidth: 200,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: "center",
                 justifyContent: "space-between",
-                padding: 2,
-                mx: 2
+                gap: 2
             }}
         >
             <Box
                 component="image"
                 sx={{
-                    width: 120,
-                    height: 120,
+                    width: 200,
+                    height: 200,
                     backgroundImage: `url(${image})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     position: "relative",
+                    bgcolor: TypeColors[types[0]] || '#D3D3D3',
+                    borderRadius: 5
                 }}
             />
-            
-            <Box>
-                <Typography>{name}</Typography>
-                <Typography>Nº {number}</Typography>
+
+            <Box display='flex' flexDirection='row' alignItems='center' justifyContent='space-between' width='100%' textAlign='left'>
+                <Box>
+                    <Typography>#{number}</Typography>
+                    <Typography fontWeight={600}>{capitalizeFirstLetter(name)}</Typography>
+                </Box>
+
                 <Box sx={{
                     display: "flex",
-                    flexDirection: "row",
+                    flexDirection: "column",
                     justifyContent: "center",
-                    gap: 2
+                    gap: 1
                 }}>
                     {types.map((type, index) => (
                         <Chip
                             key={index}
-                            label={type}
+                            label={capitalizeFirstLetter(type)}
+                            size="small"
                             sx={{
                                 bgcolor: TypeColors[type] || '#D3D3D3',
-                                color: '#FFF'
+                                color: '#FFF',
                             }}
                         />
                     ))}

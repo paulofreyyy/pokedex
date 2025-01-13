@@ -13,7 +13,7 @@ interface PokemonDetails {
 
 export const fetchPokemons = async (): Promise<PokemonDetails[]> => {
     try {
-        const { data } = await axios.get<{ results: Pokemon[] }>('https://pokeapi.co/api/v2/pokemon?limit=10');
+        const { data } = await axios.get<{ results: Pokemon[] }>('https://pokeapi.co/api/v2/pokemon?limit=12');
 
         const pokemonsDetails = await Promise.all(
             data.results.map(({ url }) => 
