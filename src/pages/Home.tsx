@@ -1,40 +1,23 @@
-import { Box, CircularProgress, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 import { fetchPokemons } from "../service/axiosPokedex";
 import PokemonCard from "../components/PokemonCard";
 
 export const Home = () => {
     const [pokemons, setPokemons] = useState<any[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const handleFetchPokemon = async () => {
             try {
                 const results = await fetchPokemons();
+                console.log(results)
                 setPokemons(results);
             } catch (error) {
                 console.log('Erro ao buscar pokemons', error)
-            } finally {
-                setLoading(false);
             }
         };
         handleFetchPokemon();
     }, [pokemons]);
-
-    if (loading) {
-        return (
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100vh',
-                }}
-            >
-                <CircularProgress />
-            </Box>
-        );
-    }
 
     return (
         <Grid

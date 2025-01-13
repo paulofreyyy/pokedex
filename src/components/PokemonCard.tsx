@@ -1,6 +1,7 @@
 import { Box, Chip, Typography } from "@mui/material";
 import { TypeColors } from "../utils/typeColors";
 import { capitalizeFirstLetter } from "../utils/stringUtils";
+import { useNavigate } from "react-router-dom";
 
 interface PokemonCardProps {
     name: string;
@@ -10,6 +11,12 @@ interface PokemonCardProps {
 }
 
 const PokemonCard = ({ name, number, types, image }: PokemonCardProps) => {
+    const navigate = useNavigate();
+
+    const handleNavigate = () => {
+        navigate(`/details/${number}`)
+    }
+
     return (
         <Box
             sx={{
@@ -22,6 +29,7 @@ const PokemonCard = ({ name, number, types, image }: PokemonCardProps) => {
                 gap: 2,
                 cursor: "pointer",
             }}
+            onClick={handleNavigate}
         >
             <Box
                 component="image"
