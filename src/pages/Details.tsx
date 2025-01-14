@@ -3,21 +3,31 @@ import { Box, Typography, Chip, lighten } from "@mui/material";
 import { TypeColors } from "../utils/typeColors";
 import { capitalizeFirstLetter } from "../utils/stringUtils";
 import { PokemonDetails } from "../types/pokemon";
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { StatsBar } from "../components/StatsBar";
+import useData from "../hooks/useData";
 
 
 export const Details = () => {
     const { number } = useParams<{ number: string }>();
+    const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>()
+    const { fetchPokemonDetails } = useData();
 
-    const pokemonDetails: PokemonDetails | null = useMemo(() => {
-        const storedData = sessionStorage.getItem("pokemonDetails");
-        if (storedData) {
-            const pokemons: PokemonDetails[] = JSON.parse(storedData);
-            return pokemons.find(pokemon => pokemon.number === Number(number)) || null;
+    const handleFetchDetails = async (number: number) => {
+        try {
+            const results = await fetchPokemonDetails(number);
+            setPokemonDetails(results);
+        } catch (error) {
+            console.log(error);
         }
-        return null;
+    }
+
+    useEffect(() => {
+        if (number) {
+            handleFetchDetails(Number(number)); // Converte para número, se necessário
+        }
     }, [number]);
+
 
     if (!pokemonDetails) {
         return <Typography>Pokémon não encontrado.</Typography>;
