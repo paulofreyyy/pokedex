@@ -2,11 +2,11 @@ import { Box, LinearProgress, Typography } from "@mui/material"
 
 interface Props {
     label: string;
-    value: number;
+    value: number | undefined;
 }
 
 export const StatsBar = ({ label, value }: Props) => {
-    const percentage = (value / 255) * 100;
+    const percentage = (value! / 150) * 100;
 
     const getColor = () => {
         if (percentage <= 25) return "red";
