@@ -1,26 +1,11 @@
 import { Box, Grid, IconButton } from "@mui/material";
-import { useEffect, useState } from "react";
-import { fetchPokemons } from "../service/axiosPokedex";
 import PokemonCard from "../components/PokemonCard";
 import { CgArrowLeftR, CgArrowRightR } from "react-icons/cg";
+import useData from "../hooks/useData";
 
 export const Home = () => {
-    const [pokemons, setPokemons] = useState<any[]>([]);
-    const [offset, setOffset] = useState(0);
     const limit = 12;
-
-    useEffect(() => {
-        const handleFetchPokemon = async () => {
-            try {
-                const results = await fetchPokemons(offset);
-                console.log(results)
-                setPokemons(results);
-            } catch (error) {
-                console.log('Erro ao buscar pokemons', error)
-            }
-        };
-        handleFetchPokemon();
-    }, [offset]);
+    const { pokemons, offset, setOffset } = useData(limit)
 
     return (
         <>

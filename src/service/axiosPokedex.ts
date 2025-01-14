@@ -33,3 +33,14 @@ export const fetchPokemons = async (offset: number): Promise<PokemonDetails[]> =
         throw new Error('Erro ao buscar pokémons.');
     }
 };
+
+export const getPokemonDetails = async (number: number) => {
+    try {
+        const { data } = await axios.get<{ results: Pokemon[] }>(`https://pokeapi.co/api/v2/pokemon/${number}`);
+
+        return data;
+    } catch (error) {
+        console.error(error);
+        throw new Error('Erro ao buscar pokémons.');
+    }
+}
