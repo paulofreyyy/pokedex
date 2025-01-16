@@ -24,7 +24,7 @@ export const Details = () => {
 
     useEffect(() => {
         if (number) {
-            handleFetchDetails(Number(number)); // Converte para número, se necessário
+            handleFetchDetails(Number(number)); 
         }
     }, [number]);
 
