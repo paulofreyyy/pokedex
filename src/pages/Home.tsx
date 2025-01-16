@@ -1,7 +1,7 @@
-import { Grid } from "@mui/material";
 import PokemonCard from "../components/PokemonCard";
 import useData from "../hooks/useData";
 import { NavigationCards } from "../components/NavigationCards";
+import Grid from '@mui/material/Grid2';
 
 export const Home = () => {
     const limit = 12;
@@ -13,12 +13,11 @@ export const Home = () => {
 
             <Grid
                 container
-                rowSpacing={4}
+                spacing={4}
             >
                 {pokemons.map((pokemon, index) => (
                     <Grid
-                        item
-                        md={2}
+                        size={2}
                         key={index}
                     >
                         <PokemonCard
@@ -30,6 +29,6 @@ export const Home = () => {
                     </Grid>
                 ))}
             </Grid>
-        </>
+        </ >
     );
 };

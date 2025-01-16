@@ -8,25 +8,24 @@ interface Props {
 }
 
 export const NavigationCards = ({ limit, offset, setOffset }: Props) => {
-    return (
-        <Box
-            display='flex'
-            alignItems='center'
-            position='relative'
-        >
-            <IconButton
-                onClick={() => setOffset((prev: number) => Math.max(0, prev - limit))}
-                disabled={offset === 0}
-            >
-                <CgArrowLeftR />
 
-            </IconButton>
-            <Typography>{offset} à {offset + 12}</Typography>
-            <IconButton
-                onClick={() => setOffset((prev: number) => prev + limit)}
-            >
-                <CgArrowRightR />
-            </IconButton>
+    return (
+        <Box display='flex' justifyContent='space-between'>
+            <Box display='flex' alignItems='center'>
+                <IconButton
+                    onClick={() => setOffset((prev: number) => Math.max(0, prev - limit))}
+                    disabled={offset === 0}
+                >
+                    <CgArrowLeftR />
+
+                </IconButton>
+                <Typography>{offset} à {offset + 12}</Typography>
+                <IconButton
+                    onClick={() => setOffset((prev: number) => prev + limit)}
+                >
+                    <CgArrowRightR />
+                </IconButton>
+            </Box>
         </Box>
     )
 }
