@@ -12,7 +12,7 @@ export const Filters = ({ limit, offset, setOffset }: Props) => {
 
     return (
         <Box display='flex' justifyContent='space-between'>
-            <Box width={100}>
+            <Box width={200}>
                 <CustomSelect />
             </Box>
 

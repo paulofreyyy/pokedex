@@ -15,21 +15,18 @@ const PokemonCard = ({ name, number, types, image }: PokemonDetails) => {
         <Box
             sx={{
                 textAlign: 'center',
-                maxWidth: 200,
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: "center",
-                justifyContent: "space-between",
                 gap: 2,
                 cursor: "pointer",
             }}
             onClick={handleNavigate}
         >
             <Box
-                component="image"
+                component="img"
                 sx={{
-                    width: 200,
-                    height: 200,
+                    height: 300,
+                    display: "flex",
                     backgroundImage: `url(${image})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",

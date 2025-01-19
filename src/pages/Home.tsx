@@ -14,11 +14,12 @@ export const Home = () => {
             <Grid
                 container
                 spacing={4}
+                mt={3}
             >
                 {pokemons.map((pokemon, index) => (
                     <Grid
-                        size={3}
                         key={index}
+                        size={3}
                     >
                         <PokemonCard
                             name={pokemon.name}

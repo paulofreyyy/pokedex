@@ -9,7 +9,7 @@ interface Props {
 export const CustomSelect = ({ value }: Props) => {
     return (
         <>
-            <FormControl fullWidth>
+            <FormControl fullWidth size="small">
                 <InputLabel>
                     <TbPokeball /> Tipo
                 </InputLabel>

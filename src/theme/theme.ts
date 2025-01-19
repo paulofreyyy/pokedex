@@ -6,7 +6,8 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     backgroundColor: "#ffffff",
-                    borderRadius: 4,
+                    borderRadius: 6,
+                    boxShadow: '0px 0px 10px 3px rgba(221,225,235,1)',
                     "& .MuiOutlinedInput-root": {
                         border: "none",
                         "&:hover": {
@@ -34,7 +35,7 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     backgroundColor: "#ffffff",
-                    borderRadius: 4,
+                    borderRadius: 6,
                     color: "red !important",
                     textAlign: "left",
                 },
