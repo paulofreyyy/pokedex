@@ -10,3 +10,8 @@ export interface PokemonDetails {
     sp_defense?: number;
     speed?: number;
 }
+
+export interface PokemonTypes {
+    weakness: string[];
+    strength: string[];
+}

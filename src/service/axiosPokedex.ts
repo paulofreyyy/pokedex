@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PokemonDetails } from "../types/pokemon";
+import { PokemonDetails, PokemonTypes } from "../types/pokemon";
 
 interface Pokemon {
     name: string;
@@ -11,7 +11,7 @@ export const fetchPokemons = async (offset: number): Promise<PokemonDetails[]> =
         const { data } = await axios.get<{ results: Pokemon[] }>(`https://pokeapi.co/api/v2/pokemon?limit=12&offset=${offset}`);
 
         const pokemonsDetails = await Promise.all(
-            data.results.map(({ url }) => 
+            data.results.map(({ url }) =>
                 axios.get(url).then(({ data }) => ({
                     name: data.name,
                     types: data.types.map((typeInfo: { type: { name: string } }) => typeInfo.type.name),
@@ -42,7 +42,7 @@ export const getPokemonDetails = async (number: number): Promise<PokemonDetails>
             name: data.name,
             number: data.id,
             types: data.types.map((type: any) => type.type.name),
-            image: data.sprites.front_default,
+            image: data.sprites.other?.['official-artwork'].front_default,
             speed: data.stats[5].base_stat,
             sp_defense: data.stats[4].base_stat,
             sp_attack: data.stats[3].base_stat,
@@ -55,5 +55,25 @@ export const getPokemonDetails = async (number: number): Promise<PokemonDetails>
     } catch (error) {
         console.error(error);
         throw new Error('Erro ao buscar pokémons.');
+    }
+}
+
+export const getPokemonTypes = async (type: string): Promise<PokemonTypes> => {
+    try {
+        const { data } = await axios.get(`https://pokeapi.co/api/v2/type/${type}`);
+
+        const weakness = data.damage_relations.double_damage_from.map((weakness: { name: string }) => weakness.name);
+        const strength = data.damage_relations.double_damage_to.map((strength: { name: string }) => strength.name);
+
+
+        const pokemonTypes: PokemonTypes = {
+            weakness,
+            strength
+        }
+
+        return pokemonTypes
+    } catch (error) {
+        console.error(error)
+        throw new Error('Erro ao buscar tipos.');
     }
 }

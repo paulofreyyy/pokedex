@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { PokemonDetails } from "../types/pokemon";
-import { fetchPokemons, getPokemonDetails } from "../service/axiosPokedex";
+import { fetchPokemons, getPokemonDetails, getPokemonTypes } from "../service/axiosPokedex";
 
 function useData(limit: number = 12) {
     const [pokemons, setPokemons] = useState<PokemonDetails[]>([])
@@ -28,7 +28,17 @@ function useData(limit: number = 12) {
         }
     };
 
-    return { pokemons, offset, setOffset, fetchPokemonDetails };
+    const fetchPokemonTypes = async (type: string) => {
+        try {
+            const results = await getPokemonTypes(type);
+            return results;
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+
+    return { pokemons, offset, setOffset, fetchPokemonDetails, fetchPokemonTypes };
 }
 
 export default useData;

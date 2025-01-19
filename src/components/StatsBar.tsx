@@ -20,13 +20,12 @@ export const StatsBar = ({ label, value }: Props) => {
             sx={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "flex-end",
+                justifyContent: "flex-start",
                 gap: 3,
                 mb: 1,
             }}
         >
-            <Typography fontWeight={600}>{label}</Typography>
-            <Typography fontWeight={600}>{value}</Typography>
+
 
             <Box sx={{ minWidth: 350 }}>
                 <LinearProgress
@@ -42,6 +41,9 @@ export const StatsBar = ({ label, value }: Props) => {
                     }}
                 />
             </Box>
+
+            <Typography fontWeight={600}>{value}</Typography>
+            <Typography fontWeight={600}>{label}</Typography>
         </Box>
     )
 }

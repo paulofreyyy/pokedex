@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { Box, Typography, Chip, lighten } from "@mui/material";
 import { TypeColors } from "../utils/typeColors";
 import { capitalizeFirstLetter } from "../utils/stringUtils";
-import { PokemonDetails } from "../types/pokemon";
+import { PokemonDetails, PokemonTypes } from "../types/pokemon";
 import { useEffect, useState } from "react";
 import { StatsBar } from "../components/StatsBar";
 import useData from "../hooks/useData";
@@ -11,11 +11,19 @@ import useData from "../hooks/useData";
 export const Details = () => {
     const { number } = useParams<{ number: string }>();
     const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>()
-    const { fetchPokemonDetails } = useData();
+    const [pokemonTypes, setPokemonTypes] = useState<PokemonTypes | null>(null);
+    const { fetchPokemonDetails, fetchPokemonTypes } = useData();
 
     const handleFetchDetails = async (number: number) => {
         try {
             const results = await fetchPokemonDetails(number);
+            const typesDetails = await Promise.all(
+                results.types.map(async (type) => {
+                    const typeData = await fetchPokemonTypes(type);
+                    return typeData;
+                })
+            );
+            setPokemonTypes(typesDetails[0]);
             setPokemonDetails(results);
         } catch (error) {
             console.log(error);
@@ -24,7 +32,7 @@ export const Details = () => {
 
     useEffect(() => {
         if (number) {
-            handleFetchDetails(Number(number)); 
+            handleFetchDetails(Number(number));
         }
     }, [number]);
 
@@ -34,59 +42,66 @@ export const Details = () => {
     }
 
     return (
-        <>
+        <Box display='flex' justifyContent='space-between' alignItems='center'>
             <Box
-                sx={{
-                    width: "100%",
-                    bgcolor: TypeColors[pokemonDetails.types[0]] || "#D3D3D3",
-                    display: "flex",
-                    borderRadius: "0 0 30px 30px",
-                    py: 8,
-                    position: "relative",
-                }}
+                width='50%'
+                bgcolor="#FFF"
+                boxShadow='0px 0px 10px 3px rgba(221,225,235,1)'
+                borderRadius="30px"
+                py={4}
             >
                 <Box
                     sx={{
-                        position: "absolute",
-                        top: "50%",
-                        left: "50%",
-                        transform: "translate(-50%, -50%)",
+                        display: "flex",
+                        flexDirection: "column",
+                        position: "relative",
                     }}
                 >
-                    <Typography
-                        fontWeight={600}
-                        fontSize='20rem'
+                    <Box
                         sx={{
-                            color: () =>
-                                lighten(TypeColors[pokemonDetails.types[0]] || "#D3D3D3", 0.3),
+                            position: "absolute",
+                            top: "50%",
+                            left: "50%",
+                            transform: "translate(-50%, -50%)",
                         }}
-                    >#{number}</Typography>
+                    >
+                        <Typography
+                            fontWeight={600}
+                            fontSize='20rem'
+                            sx={{
+                                color: () =>
+                                    lighten(TypeColors[pokemonDetails.types[0]] || "#D3D3D3", 0.3),
+                            }}
+                        >#{number}</Typography>
+                    </Box>
+
+                    <Box
+                        component="img"
+                        src={pokemonDetails.image}
+                        alt={pokemonDetails.name}
+                        sx={{
+                            height: 250,
+                            margin: "16px auto",
+                            borderRadius: 5,
+                            zIndex: 1,
+                        }}
+                    />
                 </Box>
 
                 <Box
-                    component="img"
-                    src={pokemonDetails.image}
-                    alt={pokemonDetails.name}
                     sx={{
-                        width: 200,
-                        height: 200,
-                        margin: "16px auto",
-                        borderRadius: 5,
-                        zIndex: 1,
+                        textAlign: "center",
+                        display: 'flex',
+                        alignItems: "center",
+                        flexDirection: 'column',
                     }}
-                />
-            </Box>
-            <Box sx={{
-                display: 'flex',
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                mt: 2,
-            }}
-            >
-                <Box sx={{ padding: 4, textAlign: "center" }}>
-                    <Typography fontWeight={600} color="#7a7979">#{pokemonDetails.number} </Typography>
-                    <Typography variant="h4" fontWeight={600}>{capitalizeFirstLetter(pokemonDetails.name)}</Typography>
-                    <Box sx={{ display: "flex", justifyContent: "center", gap: 1, marginTop: 2 }}>
+                >
+                    <Box>
+                        <Typography fontWeight={600} color="#7a7979">#{pokemonDetails.number} </Typography>
+                        <Typography variant="h4" fontWeight={600}>{capitalizeFirstLetter(pokemonDetails.name)}</Typography>
+                    </Box>
+
+                    <Box sx={{ display: 'flex', gap: 1, marginTop: 2 }}>
                         {pokemonDetails.types.map((type, index) => (
                             <Chip
                                 key={index}
@@ -102,7 +117,21 @@ export const Details = () => {
                     </Box>
 
                 </Box>
+            </Box>
+
+            <Box sx={{
+                display: 'flex',
+                flexDirection: "column",
+                gap: 4,
+                // bgcolor: "#FFF",
+                // boxShadow: '0px 0px 10px 3px rgba(221,225,235,1)',
+                // borderRadius: "30px",
+                // py: 3,
+                // px: 2,
+            }}
+            >
                 <Box>
+                    <Typography fontWeight={600} mb={2}>Status</Typography>
                     <StatsBar label="Speed" value={pokemonDetails.speed} />
                     <StatsBar label="Special Defense" value={pokemonDetails.sp_defense} />
                     <StatsBar label="Special Attack" value={pokemonDetails.sp_attack} />
@@ -110,8 +139,48 @@ export const Details = () => {
                     <StatsBar label="Attack" value={pokemonDetails.attack} />
                     <StatsBar label="Hp" value={pokemonDetails.hp} />
                 </Box>
-            </Box>
-        </>
+
+                <Box>
+                    <Typography fontWeight={600} mb={2}>Fraquezas</Typography>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                        {pokemonTypes?.weakness.map((weakness, index) => (
+                            <Chip
+                                key={index}
+                                label={capitalizeFirstLetter(weakness)}
+                                sx={{
+                                    bgcolor: TypeColors[weakness] || "#D3D3D3",
+                                    color: "#FFF",
+                                    fontWeight: 600,
+                                    px: 1,
+                                }}
+                            />
+                        ))}
+                    </Box>
+                </Box>
+
+                <Box>
+                    <Box>
+                        <Typography fontWeight={600} mb={2}>Vantagens</Typography>
+                        <Box sx={{ display: 'flex', gap: 1 }}>
+                            {pokemonTypes?.strength.map((strength, index) => (
+                                <Chip
+                                    key={index}
+                                    label={capitalizeFirstLetter(strength)}
+                                    sx={{
+                                        bgcolor: TypeColors[strength] || "#D3D3D3",
+                                        color: "#FFF",
+                                        fontWeight: 600,
+                                        px: 1,
+                                    }}
+                                />
+                            ))}
+                        </Box>
+                    </Box>
+                </Box>
+
+
+            </Box >
+        </Box >
 
     );
 };
