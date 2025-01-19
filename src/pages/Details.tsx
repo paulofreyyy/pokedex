@@ -6,6 +6,7 @@ import { PokemonDetails, PokemonTypes } from "../types/pokemon";
 import { useEffect, useState } from "react";
 import { StatsBar } from "../components/StatsBar";
 import useData from "../hooks/useData";
+import { CardBadge } from "../components/badge";
 
 
 export const Details = () => {
@@ -43,13 +44,28 @@ export const Details = () => {
 
     return (
         <Box display='flex' justifyContent='space-between' alignItems='center'>
+            {/* Card */}
             <Box
                 width='50%'
                 bgcolor="#FFF"
                 boxShadow='0px 0px 10px 3px rgba(221,225,235,1)'
                 borderRadius="30px"
                 py={4}
+                position='relative'
             >
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: 'space-between',
+                        position: "absolute",
+                        top: 0,
+                        width: "100%",
+                    }}
+                >
+                    <CardBadge position="left" value="2.3m" />
+                    <CardBadge position="right" value="100.0kg" />
+                </Box>
+                {/* Imagem */}
                 <Box
                     sx={{
                         display: "flex",
@@ -88,6 +104,7 @@ export const Details = () => {
                     />
                 </Box>
 
+                {/* Informações */}
                 <Box
                     sx={{
                         textAlign: "center",
@@ -119,15 +136,11 @@ export const Details = () => {
                 </Box>
             </Box>
 
+            {/* Status */}
             <Box sx={{
                 display: 'flex',
                 flexDirection: "column",
                 gap: 4,
-                // bgcolor: "#FFF",
-                // boxShadow: '0px 0px 10px 3px rgba(221,225,235,1)',
-                // borderRadius: "30px",
-                // py: 3,
-                // px: 2,
             }}
             >
                 <Box>
