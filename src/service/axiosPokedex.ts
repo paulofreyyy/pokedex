@@ -16,7 +16,7 @@ export const fetchPokemons = async (offset: number): Promise<PokemonDetails[]> =
                     name: data.name,
                     types: data.types.map((typeInfo: { type: { name: string } }) => typeInfo.type.name),
                     number: data.id,
-                    image: data.sprites.front_default,
+                    image: data.sprites.other?.['official-artwork'].front_default,
                     hp: data.stats[0].base_stat,
                     attack: data.stats[1].base_stat,
                     defense: data.stats[2].base_stat,
