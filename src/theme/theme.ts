@@ -26,7 +26,7 @@ export const theme = createTheme({
                     display: "flex",
                     alignItems: "center",
                     gap: "8px",
-                    color: "red !important",
+                    color: "#5e5e5e !important",
                     fontWeight: "bold",
                 },
             },
@@ -36,7 +36,7 @@ export const theme = createTheme({
                 root: {
                     backgroundColor: "#ffffff",
                     borderRadius: 6,
-                    color: "red !important",
+                    color: "#5e5e5e !important",
                     textAlign: "left",
                 },
             },
@@ -51,7 +51,7 @@ export const theme = createTheme({
         MuiMenuItem: {
             styleOverrides: {
                 root: {
-                    color: "red",
+                    color: "#5e5e5e !important",
                 },
             },
         },

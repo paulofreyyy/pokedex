@@ -1,6 +1,7 @@
 import { FormControl, InputLabel, MenuItem } from "@mui/material";
 import Select from "@mui/material/Select";
 import { TbPokeball } from "react-icons/tb";
+import { pokemonTypes } from "../../types/pokemon";
 
 interface Props {
     value?: string;
@@ -14,7 +15,11 @@ export const CustomSelect = ({ value }: Props) => {
                     <TbPokeball /> Tipo
                 </InputLabel>
                 <Select value={value}>
-                    <MenuItem value={value}>aaaa</MenuItem>
+                    {pokemonTypes.map((type) => (
+                        <MenuItem value={value} key={type}>
+                            {type}
+                        </MenuItem>
+                    ))}
                 </Select>
             </FormControl>
         </>
