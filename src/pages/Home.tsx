@@ -1,6 +1,6 @@
 import PokemonCard from "../components/PokemonCard";
 import useData from "../hooks/useData";
-import { NavigationCards } from "../components/NavigationCards";
+import { Filters } from "../components/Filters";
 import Grid from '@mui/material/Grid2';
 
 export const Home = () => {
@@ -9,7 +9,7 @@ export const Home = () => {
 
     return (
         <>
-            <NavigationCards limit={limit} offset={offset} setOffset={setOffset} />
+            <Filters limit={limit} offset={offset} setOffset={setOffset} />
 
             <Grid
                 container

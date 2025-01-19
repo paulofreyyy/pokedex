@@ -1,5 +1,6 @@
 import { Box, IconButton, Typography } from "@mui/material"
 import { CgArrowLeftR, CgArrowRightR } from "react-icons/cg"
+import { CustomSelect } from "./select";
 
 interface Props {
     limit: number;
@@ -7,10 +8,14 @@ interface Props {
     setOffset: any;
 }
 
-export const NavigationCards = ({ limit, offset, setOffset }: Props) => {
+export const Filters = ({ limit, offset, setOffset }: Props) => {
 
     return (
         <Box display='flex' justifyContent='space-between'>
+            <Box width={100}>
+                <CustomSelect />
+            </Box>
+
             <Box display='flex' alignItems='center'>
                 <IconButton
                     onClick={() => setOffset((prev: number) => Math.max(0, prev - limit))}
