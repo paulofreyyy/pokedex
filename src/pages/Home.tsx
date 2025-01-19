@@ -17,7 +17,7 @@ export const Home = () => {
             >
                 {pokemons.map((pokemon, index) => (
                     <Grid
-                        size={2}
+                        size={3}
                         key={index}
                     >
                         <PokemonCard
