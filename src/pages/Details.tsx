@@ -34,6 +34,7 @@ export const Details = () => {
     useEffect(() => {
         if (number) {
             handleFetchDetails(Number(number));
+            console.log(pokemonDetails)
         }
     }, [number]);
 
@@ -62,8 +63,8 @@ export const Details = () => {
                         width: "100%",
                     }}
                 >
-                    <CardBadge position="left" value="2.3m" />
-                    <CardBadge position="right" value="100.0kg" />
+                    <CardBadge position="left" value={`${pokemonDetails.height}m`} />
+                    <CardBadge position="right" value={`${pokemonDetails.weight}kg`} />
                 </Box>
                 {/* Imagem */}
                 <Box

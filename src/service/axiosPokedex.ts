@@ -49,6 +49,8 @@ export const getPokemonDetails = async (number: number): Promise<PokemonDetails>
             defense: data.stats[2].base_stat,
             attack: data.stats[1].base_stat,
             hp: data.stats[0].base_stat,
+            weight: data.weight,
+            height: data.height,
         };
 
         return pokemonDetails;

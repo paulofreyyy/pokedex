@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material"
 
 interface Props {
-    value: string;
+    value?: string;
     position: "left" | "right"
 }
 

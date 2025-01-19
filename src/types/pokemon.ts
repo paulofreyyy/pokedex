@@ -9,6 +9,8 @@ export interface PokemonDetails {
     sp_attack?: number;
     sp_defense?: number;
     speed?: number;
+    weight?: number;
+    height?: number;
 }
 
 export interface PokemonTypes {
