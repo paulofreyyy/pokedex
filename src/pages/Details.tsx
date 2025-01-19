@@ -54,6 +54,7 @@ export const Details = () => {
                 py={4}
                 position='relative'
             >
+                {/* Badges */}
                 <Box
                     sx={{
                         display: "flex",
@@ -66,6 +67,7 @@ export const Details = () => {
                     <CardBadge position="left" value={`${pokemonDetails.height}m`} />
                     <CardBadge position="right" value={`${pokemonDetails.weight}kg`} />
                 </Box>
+
                 {/* Imagem */}
                 <Box
                     sx={{
@@ -84,7 +86,7 @@ export const Details = () => {
                     >
                         <Typography
                             fontWeight={600}
-                            fontSize='20rem'
+                            fontSize={Number(number) > 999 ? '10rem' : Number(number) > 99 ? '15rem' : '20rem'}
                             sx={{
                                 color: () =>
                                     lighten(TypeColors[pokemonDetails.types[0]] || "#D3D3D3", 0.3),

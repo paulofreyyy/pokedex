@@ -19,6 +19,7 @@ export const CardBadge = ({ value, position }: Props) => {
                 alignItems: "center",
                 justifyContent: "center",
                 textAlign: "center",
+                zIndex: 1,
             }}
         >
             <Typography fontWeight={600}>{value}</Typography>
