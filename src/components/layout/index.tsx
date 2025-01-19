@@ -1,18 +1,21 @@
 import { AppBar, Box, Container, IconButton, Toolbar, Typography } from "@mui/material"
 import { LuJoystick } from "react-icons/lu";
 import { TbMovie, TbNews, TbPokeball, TbVideo } from "react-icons/tb";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     children: React.ReactNode;
 }
 
 export const Layout = ({ children }: Props) => {
+    const navigate = useNavigate();
+
     const pages = [
-        { name: "Pokedex", icon: <TbPokeball /> },
-        { name: "Notícias", icon: <TbNews /> },
-        { name: "Jogos", icon: <LuJoystick /> },
-        { name: "Séries", icon: <TbVideo /> },
-        { name: "Filmes", icon: <TbMovie /> },
+        { name: "Pokedex", icon: <TbPokeball />, path: '/' },
+        { name: "Notícias", icon: <TbNews />, path: 'noticias' },
+        { name: "Jogos", icon: <LuJoystick />, path: 'jogos' },
+        { name: "Séries", icon: <TbVideo />, path: 'series' },
+        { name: "Filmes", icon: <TbMovie />, path: 'filmes' },
     ];
 
     return (
@@ -30,11 +33,12 @@ export const Layout = ({ children }: Props) => {
                 <Container>
                     <Toolbar disableGutters>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', justifyContent: 'space-evenly' } }}>
-                            {pages.map(({ icon, name }) => (
+                            {pages.map(({ icon, name, path }) => (
                                 <IconButton
                                     key={name}
                                     sx={{ my: 2, color: "#9c9c9c", display: "flex", alignItems: "center" }}
                                     disableRipple
+                                    onClick={() => navigate(path)}
                                 >
                                     {icon}
                                     <Typography sx={{ ml: 1 }}>{name}</Typography>
