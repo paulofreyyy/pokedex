@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import { PokemonDetails } from "../types/pokemon";
 import { fetchPokemons, getPokemonDetails, getPokemonTypes } from "../service/axiosPokedex";
 
-function useData(limit: number = 12) {
+function useData() {
     const [pokemons, setPokemons] = useState<PokemonDetails[]>([])
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const results = await fetchPokemons(offset);
+                const results = await fetchPokemons();
                 setPokemons(results);
             } catch (error) {
                 console.log('Erro ao buscar pokemons', error)
             }
         };
         fetchData();
-    }, [offset, limit]);
+    }, [offset]);
 
     const fetchPokemonDetails = async (number: number) => {
         try {

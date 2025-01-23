@@ -1,21 +1,21 @@
-import { Box, IconButton, SelectChangeEvent, Typography } from "@mui/material"
-import { CgArrowLeftR, CgArrowRightR } from "react-icons/cg"
+import { Box, SelectChangeEvent } from "@mui/material"
 import { CustomSelect } from "./select";
 import { CustomTextField } from "./input/customTextField";
-import { useState } from "react";
 
 interface Props {
-    limit: number;
-    offset: number;
-    setOffset: any;
+    selectedType: string;
+    setSelectedType: (type: string) => void;
+    searchQuery: string;
+    setSearchQuery: (query: string) => void;
 }
 
-export const Filters = ({ limit, offset, setOffset }: Props) => {
-    const [selectedType, setSelectedType] = useState<string>("Todos")
-
+export const Filters = ({ selectedType, setSelectedType, searchQuery, setSearchQuery }: Props) => {
     const handleTypeChange = (event: SelectChangeEvent<string>) => {
-        console.log(event.target.value)
         setSelectedType(event.target.value);
+    };
+
+    const handleSearchChange = (value: string) => {
+        setSearchQuery(value);
     };
 
     return (
@@ -23,10 +23,10 @@ export const Filters = ({ limit, offset, setOffset }: Props) => {
             <Box width={400} display={'flex'} gap={4}>
                 <CustomSelect value={selectedType} onChange={handleTypeChange} />
 
-                <CustomTextField />
+                <CustomTextField value={searchQuery} onChange={handleSearchChange} />
             </Box>
 
-            <Box display='flex' alignItems='center'>
+            {/* <Box display='flex' alignItems='center'>
                 <IconButton
                     onClick={() => setOffset((prev: number) => Math.max(0, prev - limit))}
                     disabled={offset === 0}
@@ -41,7 +41,7 @@ export const Filters = ({ limit, offset, setOffset }: Props) => {
                 >
                     <CgArrowRightR />
                 </IconButton>
-            </Box>
+            </Box> */}
         </Box>
     )
 }

@@ -2,21 +2,43 @@ import PokemonCard from "../components/PokemonCard";
 import useData from "../hooks/useData";
 import { Filters } from "../components/Filters";
 import Grid from '@mui/material/Grid2';
+import { useState } from "react";
 
 export const Home = () => {
-    const limit = 12;
-    const { pokemons, offset, setOffset } = useData(limit)
+    const { pokemons } = useData();
+    const [selectedType, setSelectedType] = useState<string>("Todos");
+    const [searchQuery, setSearchQuery] = useState<string>("");
+
+
+    //Filtra os pokemons pelo tipo
+    const filteredPokemons =
+        selectedType === "Todos"
+            ? pokemons
+            : pokemons.filter((pokemon) =>
+                pokemon.types.includes(selectedType.toLowerCase())
+            )
+
+    // Aplica o filtro por nome ou id
+    const filteredBySearch = filteredPokemons.filter((pokemon) =>
+        pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        pokemon.number.toString().includes(searchQuery)
+    );
 
     return (
         <>
-            <Filters limit={limit} offset={offset} setOffset={setOffset} />
+            <Filters
+                selectedType={selectedType}
+                setSelectedType={setSelectedType}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+            />
 
             <Grid
                 container
                 spacing={4}
                 mt={3}
             >
-                {pokemons.map((pokemon, index) => (
+                {filteredBySearch.map((pokemon, index) => (
                     <Grid
                         key={index}
                         size={3}
