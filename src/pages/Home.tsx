@@ -8,6 +8,8 @@ export const Home = () => {
     const { pokemons } = useData();
     const [selectedType, setSelectedType] = useState<string>("Todos");
     const [searchQuery, setSearchQuery] = useState<string>("");
+    const [fromValue, setFromValue] = useState<number | string>('')
+    const [toValue, setToValue] = useState<number | string>(1000)
 
     //Filtra os pokemons pelo tipo
     const filteredPokemons =
@@ -19,9 +21,11 @@ export const Home = () => {
 
     // Aplica o filtro por nome ou id
     const filteredBySearch = filteredPokemons.filter((pokemon) =>
-        pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pokemon.number.toString().includes(searchQuery)
-    );
+        (pokemon.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            pokemon.number.toString().includes(searchQuery)) &&
+        pokemon.number >= Number(fromValue) &&
+        pokemon.number <= Number(toValue)
+    )
 
     return (
         <>
@@ -30,6 +34,10 @@ export const Home = () => {
                 setSelectedType={setSelectedType}
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
+                fromValue={fromValue}
+                setFromValue={setFromValue}
+                toValue={toValue}
+                setToValue={setToValue}
             />
 
             <Grid
