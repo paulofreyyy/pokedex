@@ -4,23 +4,31 @@ import { fetchPokemons, getPokemonDetails, getPokemonTypes } from "../service/ax
 
 function useData() {
     const [pokemons, setPokemons] = useState<PokemonDetails[]>([])
-    const [offset, setOffset] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
+            const cachedPokemons = localStorage.getItem("pokemons");
+
+            if (cachedPokemons) {
+                setPokemons(JSON.parse(cachedPokemons));
+                return;
+            }
+
             try {
                 const results = await fetchPokemons();
-                setPokemons(results);
+                localStorage.setItem("pokemons", JSON.stringify(results))
+                // setPokemons(results);
             } catch (error) {
                 console.log('Erro ao buscar pokemons', error)
             }
         };
         fetchData();
-    }, [offset]);
+    }, []);
 
     const fetchPokemonDetails = async (number: number) => {
         try {
             const results = await getPokemonDetails(number);
+            console.log(results)
             return results;
         } catch (err) {
             console.log(err)
@@ -38,7 +46,7 @@ function useData() {
         }
     }
 
-    return { pokemons, offset, setOffset, fetchPokemonDetails, fetchPokemonTypes };
+    return { pokemons, fetchPokemonDetails, fetchPokemonTypes };
 }
 
 export default useData;

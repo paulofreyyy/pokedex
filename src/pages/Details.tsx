@@ -19,13 +19,11 @@ export const Details = () => {
         try {
             const results = await fetchPokemonDetails(number);
             const typesDetails = await Promise.all(
-                results.types.map(async (type) => {
-                    const typeData = await fetchPokemonTypes(type);
-                    return typeData;
-                })
+                results.types.map((type) => fetchPokemonTypes(type))
             );
-            setPokemonTypes(typesDetails[0]);
+
             setPokemonDetails(results);
+            setPokemonTypes(typesDetails[0]);
         } catch (error) {
             console.log(error);
         }

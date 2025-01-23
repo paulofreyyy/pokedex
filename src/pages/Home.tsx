@@ -9,7 +9,6 @@ export const Home = () => {
     const [selectedType, setSelectedType] = useState<string>("Todos");
     const [searchQuery, setSearchQuery] = useState<string>("");
 
-
     //Filtra os pokemons pelo tipo
     const filteredPokemons =
         selectedType === "Todos"
