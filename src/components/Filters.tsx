@@ -25,23 +25,6 @@ export const Filters = ({ selectedType, setSelectedType, searchQuery, setSearchQ
 
                 <CustomTextField value={searchQuery} onChange={handleSearchChange} />
             </Box>
-
-            {/* <Box display='flex' alignItems='center'>
-                <IconButton
-                    onClick={() => setOffset((prev: number) => Math.max(0, prev - limit))}
-                    disabled={offset === 0}
-                >
-                    <CgArrowLeftR />
-                </IconButton>
-
-                <Typography>{offset} à {offset + 12}</Typography>
-
-                <IconButton
-                    onClick={() => setOffset((prev: number) => prev + limit)}
-                >
-                    <CgArrowRightR />
-                </IconButton>
-            </Box> */}
         </Box>
     )
 }

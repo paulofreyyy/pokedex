@@ -34,6 +34,7 @@ const PokemonCard = ({ name, number, types, image }: PokemonDetails) => {
                     bgcolor: TypeColors[types[0]] || '#D3D3D3',
                     borderRadius: 5,
                     transition: 'transform 0.5s ease-in-out',
+                    boxShadow: '0px 0px 10px 3px rgba(221,225,235,1)',
                     "&:hover": {
                         transform: "scale(1.1)",
                     }
