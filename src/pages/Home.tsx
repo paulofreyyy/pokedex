@@ -54,7 +54,7 @@ export const Home = () => {
                             name={pokemon.name}
                             number={pokemon.number}
                             types={pokemon.types}
-                            image={pokemon.image}
+                            images={pokemon.images}
                         />
                     </Grid>
                 ))}

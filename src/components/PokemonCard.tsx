@@ -4,7 +4,7 @@ import { capitalizeFirstLetter } from "../utils/stringUtils";
 import { useNavigate } from "react-router-dom";
 import { PokemonDetails } from "../types/pokemon";
 
-const PokemonCard = ({ name, number, types, image }: PokemonDetails) => {
+const PokemonCard = ({ name, number, types, images }: PokemonDetails) => {
     const navigate = useNavigate();
 
     const handleNavigate = () => {
@@ -27,7 +27,7 @@ const PokemonCard = ({ name, number, types, image }: PokemonDetails) => {
                 sx={{
                     height: 300,
                     display: "flex",
-                    backgroundImage: `url(${image})`,
+                    backgroundImage: `url(${images})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center",
                     position: "relative",
