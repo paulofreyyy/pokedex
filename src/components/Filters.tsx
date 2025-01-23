@@ -1,6 +1,7 @@
 import { Box, IconButton, Typography } from "@mui/material"
 import { CgArrowLeftR, CgArrowRightR } from "react-icons/cg"
 import { CustomSelect } from "./select";
+import { CustomTextField } from "./input/customTextField";
 
 interface Props {
     limit: number;
@@ -12,8 +13,10 @@ export const Filters = ({ limit, offset, setOffset }: Props) => {
 
     return (
         <Box display='flex' justifyContent='space-between'>
-            <Box width={200}>
+            <Box width={400} display={'flex'} gap={4}>
                 <CustomSelect />
+
+                <CustomTextField />
             </Box>
 
             <Box display='flex' alignItems='center'>
