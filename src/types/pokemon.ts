@@ -19,6 +19,7 @@ export interface PokemonTypes {
 }
 
 export const pokemonTypes = [
+    "Todos",
     "Normal",
     "Fighting",
     "Flying",

@@ -7,6 +7,7 @@ export const CustomTextField = () => {
             variant="outlined"
             fullWidth
             size="small"
+            placeholder="Nome ou ID"
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
