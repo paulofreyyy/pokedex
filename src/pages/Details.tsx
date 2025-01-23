@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Box, Typography, Chip, lighten } from "@mui/material";
+import { Box, Typography, Chip, lighten, IconButton } from "@mui/material";
 import { TypeColors } from "../utils/typeColors";
 import { capitalizeFirstLetter } from "../utils/stringUtils";
 import { PokemonDetails, PokemonTypes } from "../types/pokemon";
@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { StatsBar } from "../components/StatsBar";
 import useData from "../hooks/useData";
 import { CardBadge } from "../components/badge";
+import { TbArrowBigLeftLine, TbArrowBigRightLine } from "react-icons/tb";
 
 
 export const Details = () => {
@@ -14,6 +15,7 @@ export const Details = () => {
     const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>()
     const [pokemonTypes, setPokemonTypes] = useState<PokemonTypes | null>(null);
     const { fetchPokemonDetails, fetchPokemonTypes } = useData();
+    const [currentImageIndex, setCurrentImageIndex] = useState(0); // Estado para rastrear a imagem atual
 
     const handleFetchDetails = async (number: number) => {
         try {
@@ -29,10 +31,21 @@ export const Details = () => {
         }
     }
 
+    const handlePrevImage = () => {
+        if (pokemonDetails && pokemonDetails.images.length > 1) {
+            setCurrentImageIndex((prevIndex) => (prevIndex + 1) % pokemonDetails.images.length)
+        };
+    }
+    const handleNextImage = () => {
+        if (pokemonDetails && pokemonDetails.images.length > 1) {
+            setCurrentImageIndex((prevIndex) =>
+                prevIndex === 0 ? pokemonDetails.images.length - 1 : prevIndex - 1)
+        }
+    }
+
     useEffect(() => {
         if (number) {
             handleFetchDetails(Number(number));
-            console.log(pokemonDetails)
         }
     }, [number]);
 
@@ -94,7 +107,7 @@ export const Details = () => {
 
                     <Box
                         component="img"
-                        src={pokemonDetails.image}
+                        src={pokemonDetails.images[currentImageIndex]}
                         alt={pokemonDetails.name}
                         sx={{
                             height: 250,
@@ -103,6 +116,43 @@ export const Details = () => {
                             zIndex: 1,
                         }}
                     />
+
+                    {/* Alteração de imagem */}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            width: "100%",
+                            justifyContent: 'space-between',
+                            top: "50%",
+                            transform: 'translateY(-50%)',
+                            position: 'absolute',
+                        }}
+                    >
+                        <IconButton
+                            onClick={handlePrevImage}
+                            disableRipple
+                            sx={{
+                                transition: "ease 0.5s",
+                                ":hover": {
+                                    color: '#E3350D'
+                                },
+                            }}
+                        >
+                            <TbArrowBigLeftLine size={30} />
+                        </IconButton>
+                        <IconButton
+                            onClick={handleNextImage}
+                            disableRipple
+                            sx={{
+                                transition: "ease 0.5s",
+                                ":hover": {
+                                    color: '#E3350D'
+                                },
+                            }}
+                        >
+                            <TbArrowBigRightLine size={30} />
+                        </IconButton>
+                    </Box>
                 </Box>
 
                 {/* Informações */}

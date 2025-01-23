@@ -8,9 +8,9 @@ interface Props {
     searchQuery: string;
     setSearchQuery: (query: string) => void;
     fromValue: number | string;
-    setFromValue: (query: number) => void;
+    setFromValue: (query: number | string) => void;
     toValue: number | string;
-    setToValue: (query: number) => void;
+    setToValue: (query: number | string) => void;
 }
 
 export const Filters = ({ ...props }: Props) => {
@@ -34,17 +34,15 @@ export const Filters = ({ ...props }: Props) => {
                         label="De"
                         placeholder="Informe o número"
                         fullWidth
-                        type="number"
                         size="small"
                         value={props.fromValue}
-                        onChange={(e) => props.setFromValue(Number(e.target.value))}
+                        onChange={(e) => props.setFromValue(e.target.value)}
                     />
 
                     <TextField
                         label="Até"
                         value={props.toValue}
-                        onChange={(e) => props.setToValue(Number(e.target.value))}
-                        type="number"
+                        onChange={(e) => props.setToValue(e.target.value)}
                         placeholder="Informe o número"
                         fullWidth
                         size="small"
