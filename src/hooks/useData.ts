@@ -17,7 +17,6 @@ function useData() {
             try {
                 const results = await fetchPokemons();
                 localStorage.setItem("pokemons", JSON.stringify(results))
-                // setPokemons(results);
             } catch (error) {
                 console.log('Erro ao buscar pokemons', error)
             }
