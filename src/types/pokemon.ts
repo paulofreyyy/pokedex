@@ -11,12 +11,19 @@ export interface PokemonDetails {
     speed?: number;
     weight?: number;
     height?: number;
-    evolution_chain?: any;
+    evolution_chain?: EvolutionDetail[];
 }
 
 export interface PokemonTypes {
     weakness: string[];
     strength: string[];
+}
+
+export interface EvolutionDetail {
+    name: string;
+    number: number;
+    image: string;
+    min_level: number | null;
 }
 
 export const pokemonTypes = [
