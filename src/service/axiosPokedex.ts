@@ -46,22 +46,28 @@ export const getPokemonDetails = async (number: number): Promise<PokemonDetails>
         // console.log('evolutionResponse', evolutionResponse);
 
         // Função para processar a cadeia evolutiva
-        const processEvolutionChain = (chain: any): { species: any; min_level: number | null }[] => {
-            const evolutions: { species: any; min_level: number | null }[] = [];
+        const processEvolutionChain = async (chain: any): Promise<{ name: string; number: number; image: string; min_level: number | null }[]> => {
+            const evolutions: { name: string; number: number; image: string; min_level: number | null }[] = [];
 
             let currentChain = chain;
             while (currentChain) {
                 const species = currentChain.species;
+                const name = species.name;
                 const minLevel = currentChain.evolution_details[0]?.min_level || null;
 
-                evolutions.push({ species, min_level: minLevel });
+                // Chamada para obter os detalhes do Pokémon
+                const pokemonData = await axios.get(species.url.replace('pokemon-species', 'pokemon'));
+                const number = pokemonData.data.id;
+                const image = pokemonData.data.sprites.front_default;
+
+                evolutions.push({ name, number, image, min_level: minLevel });
                 currentChain = currentChain.evolves_to[0] || null;
             }
 
             return evolutions;
         };
 
-        const processedEvolutionChain = processEvolutionChain(evolutionResponse.data.chain);
+        const processedEvolutionChain = await processEvolutionChain(evolutionResponse.data.chain);
 
         const pokemonDetails: PokemonDetails = {
             name: data.name,

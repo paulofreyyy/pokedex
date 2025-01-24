@@ -8,6 +8,7 @@ import { StatsBar } from "../components/StatsBar";
 import useData from "../hooks/useData";
 import { CardBadge } from "../components/badge";
 import { TbArrowBigLeftLine, TbArrowBigRightLine } from "react-icons/tb";
+import { EvolutionChain } from "../components/evolution_chain";
 
 
 export const Details = () => {
@@ -15,7 +16,7 @@ export const Details = () => {
     const [pokemonDetails, setPokemonDetails] = useState<PokemonDetails>()
     const [pokemonTypes, setPokemonTypes] = useState<PokemonTypes | null>(null);
     const { fetchPokemonDetails, fetchPokemonTypes } = useData();
-    const [currentImageIndex, setCurrentImageIndex] = useState(0); // Estado para rastrear a imagem atual
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     const handleFetchDetails = async (number: number) => {
         try {
@@ -185,6 +186,9 @@ export const Details = () => {
                     </Box>
 
                 </Box>
+
+                {/* Cadeia evolutiva */}
+                <EvolutionChain pokemonDetails={pokemonDetails} />
             </Box>
 
             {/* Status */}
