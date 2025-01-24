@@ -39,6 +39,29 @@ export const fetchPokemons = async (): Promise<PokemonDetails[]> => {
 export const getPokemonDetails = async (number: number): Promise<PokemonDetails> => {
     try {
         const { data } = await axios.get(`https://pokeapi.co/api/v2/pokemon/${number}`);
+        const specieResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${number}`);
+        // console.log('specieResponse', specieResponse)
+        const evolutionURL = specieResponse.data.evolution_chain.url;
+        const evolutionResponse = await axios.get(evolutionURL);
+        // console.log('evolutionResponse', evolutionResponse);
+
+        // Função para processar a cadeia evolutiva
+        const processEvolutionChain = (chain: any): { species: any; min_level: number | null }[] => {
+            const evolutions: { species: any; min_level: number | null }[] = [];
+
+            let currentChain = chain;
+            while (currentChain) {
+                const species = currentChain.species;
+                const minLevel = currentChain.evolution_details[0]?.min_level || null;
+
+                evolutions.push({ species, min_level: minLevel });
+                currentChain = currentChain.evolves_to[0] || null;
+            }
+
+            return evolutions;
+        };
+
+        const processedEvolutionChain = processEvolutionChain(evolutionResponse.data.chain);
 
         const pokemonDetails: PokemonDetails = {
             name: data.name,
@@ -58,8 +81,10 @@ export const getPokemonDetails = async (number: number): Promise<PokemonDetails>
             hp: data.stats[0].base_stat,
             weight: data.weight,
             height: data.height,
+            evolution_chain: processedEvolutionChain,
         };
 
+        // console.log(pokemonDetails)
         return pokemonDetails;
     } catch (error) {
         console.error(error);

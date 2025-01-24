@@ -11,6 +11,7 @@ export interface PokemonDetails {
     speed?: number;
     weight?: number;
     height?: number;
+    evolution_chain?: any;
 }
 
 export interface PokemonTypes {
